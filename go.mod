@@ -1,4 +1,4 @@
-module anki-card-creator
+module github.com/bennguyen96/anki-card-creator
 
 go 1.21.6
 

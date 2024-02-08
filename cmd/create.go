@@ -1,12 +1,10 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
-	"fmt"
-
+	"github.com/bennguyen96/anki-card-creator/anki"
 	"github.com/spf13/cobra"
 )
 
@@ -20,9 +18,15 @@ and usage of using your command. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("create called")
-	},
+	Run: addCreate,
+}
+
+func addCreate(cmd *cobra.Command, args []string) {
+	cards := []anki.Card{}
+	for _, x := range args {
+		cards = append(cards, anki.Card{Kanji: x, Furigana: "a", English: "b"})
+	}
+	anki.SaveCard("test.json", cards)
 }
 
 func init() {
