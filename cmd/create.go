@@ -4,6 +4,8 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/bennguyen96/anki-card-creator/anki"
 	"github.com/spf13/cobra"
 )
@@ -22,11 +24,13 @@ to quickly create a Cobra application.`,
 }
 
 func addCreate(cmd *cobra.Command, args []string) {
-	cards := []anki.Card{}
 	for _, x := range args {
-		cards = append(cards, anki.Card{Kanji: x, Furigana: "a", English: "b"})
+		filename := fmt.Sprintf("output/%s.json", x)
+		err := anki.SaveCard(filename, x)
+		if err != nil {
+			fmt.Errorf("%v", err)
+		}
 	}
-	anki.SaveCard("test.json", cards)
 }
 
 func init() {
